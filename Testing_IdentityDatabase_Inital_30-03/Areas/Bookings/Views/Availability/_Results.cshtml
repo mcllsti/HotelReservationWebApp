@@ -1,0 +1,69 @@
+﻿@model Testing_IdentityDatabase_Inital_30_03.Areas.Bookings.Models.ResultsDTO
+
+<style>
+    div.resultsdisplay {
+        color:white;
+    }
+
+        
+</style>
+<h2>@ViewBag.Any</h2>
+@foreach (var item in Model.AvailableRooms)
+{
+    <br/>
+
+    <div class ="resultsdisplay" style="background-color:#EB6864; border:dotted; border-color:black;">
+        <h4>Room @Html.DisplayFor(model => item.RoomNumber) </h4>
+        <hr />
+        <dl>
+
+            <dt>
+               
+                @Html.DisplayNameFor(model => item.RoomType.Room_Type)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.RoomType.Room_Type)
+            </dd>
+            <dt>
+                <br />
+                @Html.DisplayNameFor(model => item.RoomType.Capacity) : @Html.DisplayFor(model => item.RoomType.Capacity)
+            </dt>
+            <dt>
+                <br />
+                @Html.DisplayNameFor(model => item.RoomCosts)
+            </dt>
+
+            <dd>
+               
+                @Html.DisplayFor(model => item.RoomCosts)
+            </dd>
+            <dd>
+                <br />
+                <br />
+                @Html.DisplayFor(model => item.RoomType.Description)
+            </dd>
+
+            <dt>
+                <br />
+                <br />
+                Room costs for this stay:
+            </dt>
+
+            <dd>
+
+                @{decimal TotalCost = (Model.Departure - Model.Arrival).Days * item.RoomCosts; }
+                £@TotalCost
+            </dd>
+            <dd>
+                <br/>
+                @Html.ActionLink("Book This Room", "ConfirmDetails", new { area = "Bookings", controller = "Booking" , Id = item.Id, Arrival = Model.Arrival, Departure = Model.Departure },new { @class = "btn btn-default", @style = "color:white" }) 
+            </dd>
+
+        </dl>
+    </div>
+
+}
+
+<hr />
+

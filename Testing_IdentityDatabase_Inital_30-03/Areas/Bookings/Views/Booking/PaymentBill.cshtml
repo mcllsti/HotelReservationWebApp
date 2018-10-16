@@ -1,0 +1,66 @@
+﻿@model Testing_IdentityDatabase_Inital_30_03.Areas.Bookings.Models.PaymentDetails
+
+@{
+    ViewBag.Title = "PaymentBill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Payment Bill</h2>
+
+<div>
+    <h4>Breakdown</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomCosts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomCosts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardCosts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardCosts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingExtrasCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingExtrasCost)
+            <hr />
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepositToPay)
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.DepositToPay)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    <div style="background-color:lightblue; padding-left:10%">
+        @Html.ActionLink("Cancel", "Index", new { area = "" }, new { @class = "btn btn-default" }) |
+        @Html.ActionLink("Confirm and Proceed to pay Deposit", "PaymentDetails", Model, new { @class = "btn btn-default" })
+
+    </div>
+
+</p>

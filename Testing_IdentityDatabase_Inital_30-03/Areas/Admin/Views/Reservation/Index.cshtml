@@ -1,0 +1,90 @@
+﻿ @model PagedList.IPagedList<Testing_IdentityDatabase_Inital_30_03.Areas.Admin.Models.ExpandedReservationDTO>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+
+
+<p>
+    @Html.ActionLink("Create New", "CreateView", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Edit Rooms", "EditRooms", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Edit Board Types", "EditBoardTypes", null, new { @class = "btn btn-default" })
+</p>
+<br />
+@using (Html.BeginForm("Index", "Reservation", FormMethod.Get))
+{
+
+    <div class="form-group">
+        Search:&nbsp; @Html.TextBox("searchStringUserNameOrEmail", ViewBag.CurrentFilter as string)
+
+        <input type="submit" value="Search" />
+    </div>
+}
+<br />
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Arrival
+        </th>
+        <th>
+            Departure
+        </th>
+        <th>
+            Room(s)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+            @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUsers.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Arrival)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Room.RoomType.Room_Type)
+            </td>
+            <td>
+                @Html.ActionLink("More Details", "MoreDetails", new { Id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+
+        </tr>
+    }
+
+
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model,
+    page => Url.Action("Index",
+    new
+    {
+        page,
+        searchStringUserNameOrEmail = ViewBag.searchStringUserNameOrEmail,
+        currentFilter = ViewBag.CurrentFilter
+    }))
+<hr />

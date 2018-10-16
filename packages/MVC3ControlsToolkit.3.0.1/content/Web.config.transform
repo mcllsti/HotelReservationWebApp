@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=152368
+  -->
+
+<configuration>
+  <system.web>
+    <pages>
+      <namespaces>
+        <add namespace="MVCControlsToolkit.Core" />
+        <add namespace="MVCControlsToolkit.Controls" />
+        <add namespace="MVCControlsToolkit.Controls.Validation" />
+      </namespaces>
+    </pages>
+  </system.web>
+</configuration>
+  

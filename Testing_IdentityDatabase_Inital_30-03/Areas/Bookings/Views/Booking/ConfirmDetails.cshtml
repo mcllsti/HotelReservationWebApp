@@ -1,0 +1,117 @@
+﻿@model Testing_IdentityDatabase_Inital_30_03.Areas.Bookings.Models.ConfirmDetailsDTO
+
+@{
+    ViewBag.Title = "ConfirmDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Confirm Your Details</h2>
+<br/>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dd><h3>Personal Details</h3></dd>
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.Title) @Html.DisplayFor(model => model.ApplicationUsers.FirstName) @Html.DisplayFor(model => model.ApplicationUsers.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUsers.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.Email)
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUsers.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.PhoneNumber)
+            <br />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUsers.AddressFirstLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.AddressFirstLine)
+            <br />
+            @Html.DisplayFor(model => model.ApplicationUsers.Street)
+            <br />
+            @Html.DisplayFor(model => model.ApplicationUsers.City)
+            <br />
+            @Html.DisplayFor(model => model.ApplicationUsers.PostCode)
+        </dd>
+        <dt></dt>
+        <dd><h3>Room Details</h3></dd>
+        <dt>
+
+            @Html.DisplayNameFor(model => model.Room.RoomNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.RoomNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Room.RoomType.Room_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.RoomType.Room_Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckIn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckIn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckOut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckOut)
+        </dd>
+
+
+
+        <dt>
+            <br />
+            @Html.DisplayNameFor(model => model.Days)
+        </dt>
+
+        <dd>
+            <br />
+            @Html.DisplayFor(model => model.Days)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Room.RoomCosts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.RoomCosts)
+        </dd>
+
+    </dl>
+</div>
+
+<p >
+    <div style="background-color:lightblue; padding-left:10%">
+        @Html.ActionLink("Cancel", "Index", new { area = "" , controller = "Home" }) |
+        @Html.ActionLink("Confirm", "GetAddtionalDetails", Model) 
+
+    </div>
+
+</p>

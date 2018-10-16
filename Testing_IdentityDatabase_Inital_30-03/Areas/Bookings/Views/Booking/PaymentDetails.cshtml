@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Payment Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Payment Details</h2>
+
+<br/>
+<br />
+<form id="checkout-form" action="@Url.Action("Create","Booking")" method="post">
+    <div id="error-message"></div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            <label for="card-number">Card Number</label>
+       </dt>
+        <dd>
+            <div class="hosted-field" id="card-number"></div>
+            </dd>
+<dt>
+            <label for="cvv">CVV</label>
+        </dt>
+        <dd>
+            <div class="hosted-field" id="cvv"></div>
+        </dd>
+<dt>
+            <label for="expiration-date">Expiration Date</label>
+        </dt>
+        <dd>
+            <div class="hosted-field" id="expiration-date"></div>
+        </dd>
+        <dd>
+            <input type="hidden" name="payment_method_nonce">
+            <input type="submit" value="Pay" disabled>
+        </dd>
+</dl>
+</form>
+
+<!-- Load the Client component. -->
+<script src="https://js.braintreegateway.com/web/3.15.0/js/client.min.js"></script>
+
+<!-- Load the Hosted Fields component. -->
+<script src="https://js.braintreegateway.com/web/3.15.0/js/hosted-fields.min.js"></script>
+
+@*Scripts used by braintrees to generate nonce ect.*@
+<script>
+    var form = document.querySelector('#checkout-form');
+    var submit = document.querySelector('input[type="submit"]');
+    var Token = "@ViewBag.ClientToken";
+    braintree.client.create({
+        authorization: Token
+    }, function (clientErr, clientInstance) {
+        if (clientErr) {
+            // Handle error in client creation
+            return;
+        }
+
+        braintree.hostedFields.create({
+            client: clientInstance,
+            styles: {
+                'input': {
+                    'font-size': '14pt'
+                },
+                'input.invalid': {
+                    'color': 'red'
+                },
+                'input.valid': {
+                    'color': 'green'
+                }
+            },
+            fields: {
+                number: {
+                    selector: '#card-number',
+                    placeholder: '4111 1111 1111 1111'
+                },
+                cvv: {
+                    selector: '#cvv',
+                    placeholder: '123'
+                },
+                expirationDate: {
+                    selector: '#expiration-date',
+                    placeholder: '10/2019'
+                }
+            }
+        }, function (hostedFieldsErr, hostedFieldsInstance) {
+            if (hostedFieldsErr) {
+                // Handle error in Hosted Fields creation
+                return;
+            }
+
+            submit.removeAttribute('disabled');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+                    if (tokenizeErr) {
+                        // Handle error in Hosted Fields tokenization
+                        return;
+                    }
+
+                    // Put `payload.nonce` into the `payment_method_nonce` input, and then
+                    // submit the form.
+                    document.querySelector('input[name="payment_method_nonce"]').value = payload.nonce;
+                    form.submit();
+                });
+            }, false);
+        });
+    });
+</script>

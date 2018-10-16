@@ -1,0 +1,167 @@
+﻿@model Testing_IdentityDatabase_Inital_30_03.Areas.Admin.Models.ExpandedReservationDTO
+
+@{
+    ViewBag.Title = "Create Reservation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+                            {
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/MVCControlToolkit.Controls.Core-3.0.0.js"></script>
+    <script src="~/Scripts/MVCControlToolkit.Controls.Datetime-3.0.0.js"></script>
+}
+
+<h2>Create Reservation</h2>
+<br />
+@ViewBag.Error
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Reservation</h4>
+        <hr />
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Arrival, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div>
+                    @{var AT = Html.DateTime("Arrival", Model.Arrival, dateInCalendar: true);  }
+                    @AT.DateCalendar(
+                    inLine: false,
+                    calendarOptions: new CalendarOptions
+                    {
+                        ChangeYear = true,
+                        ChangeMonth = true
+                    })
+                </div>
+
+                @*@Html.EditorFor(model => model.Arrival, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Arrival, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Departure, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div>
+                    @{var DT = Html.DateTime("Departure", Model.Departure, dateInCalendar: true);  }
+                    @DT.DateCalendar(
+                    inLine: false,
+                    calendarOptions: new CalendarOptions
+                    {
+                        ChangeYear = true,
+                        ChangeMonth = true
+                    })
+                </div>
+
+                @*@Html.EditorFor(model => model.Arrival, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Arrival, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+        @*<div class="form-group">
+            @Html.LabelFor("Paid": new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div>
+                    @Html.CheckBox("paid")
+                </div>
+            </div>*@
+
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.Deposit,"Deposit Paid", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBox("paid")
+                
+            </div>
+        </div>
+
+
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Departure, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Departure, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Departure, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Arrival, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Arrival, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Arrival, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BoardTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("BoardTypeId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BoardTypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoomId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RoomId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RoomId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NoOfGuests, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("NoOfGuests", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NoOfGuests, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AllExtras, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <ul>
+                    @foreach (var g in Model.AllExtras)
+                    {
+                        <li>
+                            <input type="checkbox"
+                                   name="SelectedExtra"
+                                   value="@g.Id" id="@g.Id" />
+                            <label for="@g.Id">@g.Type + @g.Cost</label>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+
+}
+

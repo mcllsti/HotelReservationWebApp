@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>@ViewBag.Title</title>
+
+        @* Select your style framework*@
+        @*
+        @Styles.Render("~/Content/css_bootstrap")
+        @Styles.Render("~/Content/css_jqueryUI")
+        @Styles.Render("~/Content/css_jmobile")
+        *@
+        
+         @*Contains jquery, all js needed for validation and the main globalize file*@
+        @Scripts.Render("~/bundles/basics")
+
+        @* Adds a globalization script specific to the culture selected on the server*@
+        @Html.GlobalizationScript("~/Scripts/globalize/cultures/")
+
+        @* Select your style framework*@
+        @*
+        @Scripts.Render("~/bundles/bootstrap_ext")
+        @Scripts.Render("~/bundles/jqueryUIGlob")
+        @Scripts.Render("~/bundles/jmobile")
+        *@
+
+	@* Preventing jquery-ui-i18n.js from unefficiently setting, one after the other, all cultures    *@
+    @* use only with jquery ui *@
+    @*
+	<script type='text/javascript' >
+            $.datepicker.oldSetDefaults = $.datepicker.setDefaults;
+            $.datepicker.setDefaults=function(){};
+    </script>
+    *@
+
+    @Scripts.Render("~/bundles/mvcct")
+    
+ 
+        
+    
+    @RenderSection("Header", false)
+
+    @* Jquery UI datepicker culture selection. For other style frameworks, please add "@ifs" on the current thread culture to add the right Datepicker globalization script *@
+    @*
+        <script type='text/javascript' >
+        jQuery(function ($) {
+            $.datepicker.setDefaults = $.datepicker.oldSetDefaults;
+            var jsCulture = $.datepicker.regional["@Culture"] || $.datepicker.regional["@Culture.Substring(0, 2)"];
+            if (jsCulture) {
+                $.datepicker.setDefaults(jsCulture);
+                
+            }
+        });
+     </script>
+    *@
+     
+    <script type='text/javascript' >
+        $.validator.setDefaults({
+            ignore: ""
+        });
+       
+    </script>
+
+
+    </head>
+
+    <body   >
+
+        @RenderBody()
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>
+

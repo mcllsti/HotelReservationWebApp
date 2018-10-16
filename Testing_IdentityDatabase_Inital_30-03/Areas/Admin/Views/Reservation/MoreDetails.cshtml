@@ -1,0 +1,169 @@
+﻿@model Testing_IdentityDatabase_Inital_30_03.Areas.Admin.Models.ExpandedReservationDTO
+
+@{
+    ViewBag.Title = "More Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>More Details</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.Title)
+            @Html.DisplayFor(model => model.ApplicationUsers.FirstName)
+            @Html.DisplayFor(model => model.ApplicationUsers.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUsers.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUsers.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUsers.AddressFirstLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.AddressFirstLine)
+            @Html.DisplayFor(model => model.ApplicationUsers.Street)
+            @Html.DisplayFor(model => model.ApplicationUsers.PostCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardType.Board_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardType.Board_Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Room.RoomNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.RoomNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Room.RoomType.Room_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.RoomType.Room_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Departure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Arrival)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Arrival)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Extras)
+        </dt>
+
+        <dd>
+            @foreach (var item in Model.Extras)
+            {
+                @Html.DisplayFor(p => item.Type)<br/> 
+            }
+        </dd>
+
+        <dt>
+            <br />
+        </dt>
+
+        <dd>
+            <br />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalBill)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalBill)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Deposit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deposit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LeftToPay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeftToPay)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Edit", "EditReservation", new { id = Model.Id }) |
+
+    @if (Model.Status.Equals("Booked"))
+    {
+        if (Model.LeftToPay == Model.TotalBill)
+        {
+            @Html.ActionLink("Pay Deposit & Check In", "DepositCheckIn", new { id = Model.Id });
+        }
+        else
+        {
+            @Html.ActionLink("Check In", "CheckIn", new { id = Model.Id });
+        }
+
+    }
+    else if (Model.Status.Equals("CheckedIn"))
+    {
+        @Html.ActionLink("Check Out", "EditReservation", new { id = Model.Id });
+        @Html.ActionLink("Add Extras", "EditReservation", new { id = Model.Id });
+    }|
+
+    @Html.ActionLink("Delete", "DeleteReservation",
+                       new { Id = Model.Id },
+                        new
+                        {
+                            onclick =
+                        "return confirm('Are you sure you wish to delete this room?');"
+                        })
+
+</p>
